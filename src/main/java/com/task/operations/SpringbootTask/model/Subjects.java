@@ -22,7 +22,7 @@ public class Subjects {
 	private float English;
 	private float Maths;
 	
-	@OneToOne
-	private Student student;
+//	@OneToOne
+//	private Student student;
 	
 }
