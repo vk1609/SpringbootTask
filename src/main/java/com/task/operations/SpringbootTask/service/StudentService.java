@@ -25,7 +25,7 @@ public class StudentService {
 		return studentRepo.findAll();
 	}
 
-	public Student getStudentById(Long stundetId) {
+	public Student getStudentById(Long stundetId){
 		// TODO Auto-generated method stub
 		Student student = studentRepo.findById(stundetId).orElseThrow(()-> new StudentNotFoundException(stundetId, "FirstName", "LastName"));
 		return student;
@@ -34,12 +34,15 @@ public class StudentService {
 	public void deleteStudent(Long studentId) {
 		// TODO Auto-generated method stub
 		
+		Student student = studentRepo.findById(studentId).orElseThrow(()-> new StudentNotFoundException(studentId, "FirstName", "LastName"));
+				
 		studentRepo.deleteById(studentId);
 	}
 
 	public Student updateStudent(Student student) {
 		// TODO Auto-generated method stub
-		Student presentStudent = studentRepo.findById(student.getStudentId()).get();
+		Student presentStudent = studentRepo.findById(student.getStudentId()).orElseThrow(
+				()-> new StudentNotFoundException(student.getStudentId(), "id", "Student"));
 		presentStudent.setFirstName(student.getFirstName());
 		presentStudent.setLastName(student.getLastName());
 		Student updatedStudent = studentRepo.save(presentStudent);
