@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.task.operations.SpringbootTask.exceptions.StudentNotFoundException;
 import com.task.operations.SpringbootTask.model.Student;
 import com.task.operations.SpringbootTask.repository.StudentRepo;
 
@@ -26,12 +27,13 @@ public class StudentService {
 
 	public Student getStudentById(Long stundetId) {
 		// TODO Auto-generated method stub
-		Optional<Student> optionalStudent = studentRepo.findById(stundetId);
-		return optionalStudent.get();
+		Student student = studentRepo.findById(stundetId).orElseThrow(()-> new StudentNotFoundException(stundetId, "FirstName", "LastName"));
+		return student;
 	}
 
 	public void deleteStudent(Long studentId) {
 		// TODO Auto-generated method stub
+		
 		studentRepo.deleteById(studentId);
 	}
 
